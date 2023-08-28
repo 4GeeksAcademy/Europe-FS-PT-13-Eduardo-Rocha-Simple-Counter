@@ -1,5 +1,5 @@
 import React from "react";
-import Timer from "./counter.jsx"
+import Timer from "./timer.jsx";
 
 
 
@@ -8,7 +8,7 @@ const Home = () => {
 	return (
 		<div className="text-center">
 			<h1 className="text-center mt-5">This is the sconds counter</h1>
-			<Counter />
+			<Timer />
 		</div>
 	);
 };
