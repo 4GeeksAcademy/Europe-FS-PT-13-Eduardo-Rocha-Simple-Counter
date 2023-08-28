@@ -1,25 +1,43 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from 'react';
 
-let Timer = () => {
-    const [seconds, setSeconds] = useState(0)
+const Timer = () => {
+  const [seconds, setSeconds] = useState(0);
+  const [isActive, setIsActive] = useState(false);
 
-    const stopTimer = () => {
+  function toggle() {
+    setIsActive(!isActive);
+  };
 
+  function reset() {
+    setSeconds(0);
+    setIsActive(false);
+  };
+
+  useEffect(() => {
+    let interval = null;
+    if (isActive) {
+      interval = setInterval(() => {
+        setSeconds(seconds => seconds + 1);
+      }, 1000);
+    } else if (!isActive && seconds !== 0) {
+      clearInterval(interval);
     }
+    return () => clearInterval(interval);
+  }, [isActive, seconds]);
 
-    const resetTimer = () => {
-
-    }
-
-    const currentCount = seconds
-
-    return (
-        <div className="counter-container">
-            <button className="stop-button" onClick={stopTimer}>stop</button>
-            <button className="reset-button" onClick={resetTimer}>reset</button>
-        </div>
-    )
+  return (
+    <>
+    <div className="time bg-dark text-white col-1">
+        {seconds}
+    </div>
+    <button className={`button button-primary button-primary-${isActive ? 'active' : 'inactive'}`} onClick={toggle}>
+          {isActive ? 'Pause' : 'Start'}
+    </button>
+    <button className="button" onClick={reset}>
+          Reset
+    </button>
+    </>
+  );
 };
 
 export default Timer;
