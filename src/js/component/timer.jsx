@@ -27,14 +27,14 @@ const Timer = () => {
 
   return (
     <>
-    <div className="time bg-dark text-white col-1">
-        {seconds}
-    </div>
     <button className={`button button-primary button-primary-${isActive ? 'active' : 'inactive'}`} onClick={toggle}>
           {isActive ? 'Pause' : 'Start'}
     </button>
     <button className="button" onClick={reset}>
           Reset
+    </button>
+    <button className="time bg-dark text-white mx-auto">
+        {seconds}
     </button>
     </>
   );
