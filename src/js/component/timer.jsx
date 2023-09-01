@@ -1,44 +1,19 @@
-import React, { useState, useEffect } from 'react';
-
-const Timer = () => {
-  const [seconds, setSeconds] = useState(0);
-  const [isActive, setIsActive] = useState(false);
-  
-
-  function toggle() {
-    setIsActive(!isActive);
-  };
-
-  function reset() {
-    setSeconds(0);
-    setIsActive(false);
-  };
-
-  useEffect(() => {
-    let interval = null;
-    if (isActive) {
-      interval = setInterval(() => {
-        setSeconds(seconds + 1); //seconds => 
-      }, 1000);
-    } else if (!isActive && seconds !== 0) {
-      clearInterval(interval);
-    }
-    return () => clearInterval(interval);
-  }, [isActive, seconds]);
-
-  return (
-    <>
-    <button className={`button button-primary button-primary-${isActive ? 'active' : 'inactive'}`} onClick={toggle}>
-          {isActive ? 'Pause' : 'Start'}
-    </button>
-    <button className="button" onClick={reset}>
-          Reset
-    </button>
-    <button className="time bg-dark text-white mx-auto">
-        {seconds}
-    </button>
-    </>
-  );
+import React from "react";
+ 
+const Timer = (props) => {
+    return (
+        <div className="timer">
+            <span className="digits">
+                {("0" + Math.floor((props.time / 60000) % 60)).slice(-2)}:
+            </span>
+            <span className="digits">
+                {("0" + Math.floor((props.time / 1000) % 60)).slice(-2)}.
+            </span>
+            <span className="digits mili-sec">
+                {("0" + ((props.time / 10) % 100)).slice(-2)}
+            </span>
+        </div>
+    );
 };
 
 export default Timer;

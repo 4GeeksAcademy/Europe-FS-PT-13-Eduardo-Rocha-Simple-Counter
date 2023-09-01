@@ -1,51 +1,52 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { Component } from 'react';
+import Timer from './timer.jsx';
+import ControlButtons from './buttons.jsx';
 
 const Stopwatch = () => {
-const Ref = useRef(null);
-const [timer, setTimer] = useState('00:00:00');
-const getTimeRemaining = (e) => {
-const total = Date.parse(e) - Date.parse(new Date());
-const seconds = Math.floor((total / 1000) % 60);
-const minutes = Math.floor((total / 1000 / 60) % 60);
-const hours = Math.floor((total / 1000 * 60 * 60) % 24);
-return {
-total, hours, minutes, seconds
-};
-}
-const startTimer = (e) => {
-let { total, hours, minutes, seconds }
-= getTimeRemaining(e);
-if (total >= 0) {
-setTimer(
-(hours > 9 ? hours : '0' + hours) + ':' +
-(minutes > 9 ? minutes : '0' + minutes) + ':'
-+ (seconds > 9 ? seconds : '0' + seconds)
-)
-}
-}
-const clearTimer = (e) => {
-if (Ref.current) clearInterval(Ref.current);
-const id = setInterval(() => {
-startTimer(e);
-}, 1000)
-Ref.current = id;
-}
-const getDeadTime = () => {
-let deadline = new Date();
-deadline.setSeconds(deadline.getSeconds() + 10);
-return deadline;
-}
-useEffect(() => {
-clearTimer(getDeadTime());
-}, []);
-const onClickReset = () => {
-clearTimer(getDeadTime());
-}
-return (
-<div className="Codedamn App">
-<h2>{timer}</h2>
-<button onClick={onClickReset}>Reset</button>
-</div>
-)
-}
-export default Stopwatch;
+    const [isActive, setIsActive] = useState(false);
+    const [isPaused, setIsPaused] = useState(true);
+    const [time, setTime] = useState(0);
+     
+    useEffect(() => {
+        let interval = null;
+     
+        if (isActive && isPaused === false) {
+            interval = setInterval(() => {
+                setTime((time) => time + 10);
+            }, 10);
+        } else {
+            clearInterval(interval);
+        }
+        return () => {
+            clearInterval(interval);
+        };
+        }, [isActive, isPaused]);
+     
+        const handleStart = () => {
+            setIsActive(true);
+            setIsPaused(false);
+        };
+     
+        const handlePauseResume = () => {
+            setIsPaused(!isPaused);
+        };
+     
+        const handleReset = () => {
+            setIsActive(false);
+            setTime(0);
+        };
+     
+        return (
+            <div className="stop-watch">
+                <Timer time={time} />
+                <ControlButtons
+                    active={isActive}
+                    isPaused={isPaused}
+                    handleStart={handleStart}
+                    handlePauseResume={handlePauseResume}
+                    handleReset={handleReset}/>
+            </div>
+        );
+    };
+     
+    export default Stopwatch;
