@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import Timer from './timer.jsx';
-import ControlButtons from './buttons.jsx';
+import ControlButtons from './controlbuttons.jsx';
 
-const Stopwatch = () => {
+const StopWatch = () => {
     const [isActive, setIsActive] = useState(false);
     const [isPaused, setIsPaused] = useState(true);
     const [time, setTime] = useState(0);
@@ -20,7 +20,7 @@ const Stopwatch = () => {
         return () => {
             clearInterval(interval);
         };
-        }, [isActive, isPaused]);
+    }, [isActive, isPaused]);
      
         const handleStart = () => {
             setIsActive(true);
@@ -44,9 +44,9 @@ const Stopwatch = () => {
                     isPaused={isPaused}
                     handleStart={handleStart}
                     handlePauseResume={handlePauseResume}
-                    handleReset={handleReset}/>
+                    handleReset={handleReset} />
             </div>
         );
-    };
+};
      
-    export default Stopwatch;
+export default StopWatch;

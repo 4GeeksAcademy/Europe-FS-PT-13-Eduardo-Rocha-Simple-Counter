@@ -1,6 +1,6 @@
 import React from "react";
  
-const ControlButtons = (props) => {
+export default function(props) {
     const StartButton = (
         <div className="btn btn-one btn-start"
             onClick={props.handleStart}>
@@ -26,5 +26,3 @@ const ControlButtons = (props) => {
         </div>
     );
 };
-
-export default ControlButtons;
