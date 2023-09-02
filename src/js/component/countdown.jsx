@@ -6,7 +6,8 @@ class Timer extends Component {
     this.state = {
       hours: 0,
       minutes: 0,
-      seconds:0
+      seconds:0,
+      timeExpired: false
     }
     this.hoursInput = React.createRef();
     this.minutesInput= React.createRef();
@@ -49,6 +50,11 @@ class Timer extends Component {
         this.setState({hours: hours -1});
       }
 
+      // alert when timer reaches 0
+      if (hours === 0 && minutes === 0 && seconds === 0) {
+        alert("Times up!");
+      }
+
     } else {
       clearInterval(this.timer);
     }
@@ -70,10 +76,9 @@ class Timer extends Component {
     this.secondsInput.current.value = 0;
   }
 
-
   render() {
     const { hours, minutes, seconds } = this.state;
-
+      
     return (
       <>
         <div className="container d-flex align-items-center">

@@ -1,5 +1,5 @@
 import React from "react";
-import SimpleCounter from "./simplecounter.jsx";
+import SecondsCounter from "./secondscounter.jsx";
 import Timer from "./countdown.jsx";
 
 
