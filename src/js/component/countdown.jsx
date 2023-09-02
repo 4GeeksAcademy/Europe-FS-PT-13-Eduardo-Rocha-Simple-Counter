@@ -6,8 +6,7 @@ class Timer extends Component {
     this.state = {
       hours: 0,
       minutes: 0,
-      seconds:0,
-      timeExpired: false
+      seconds:0
     }
     this.hoursInput = React.createRef();
     this.minutesInput= React.createRef();
@@ -26,17 +25,21 @@ class Timer extends Component {
     this.timer = setInterval(this.countDown, 1000);
   }
 
+  showAlert = () => {
+    alert("Times up!");
+  }
+
   countDown = () => {
     const  { hours, minutes, seconds } = this.state;
-    let c_seconds = this.convertToSeconds(hours, minutes, seconds);
+    let convertSeconds = this.convertToSeconds(hours, minutes, seconds);
 
-    if(c_seconds) {
+    if(convertSeconds) {
 
       // seconds change
       seconds ? this.setState({seconds: seconds-1}) : this.setState({seconds: 59});
 
       // minutes change
-      if(c_seconds % 60 === 0 && minutes) {
+      if(convertSeconds % 60 === 0 && minutes) {
         this.setState({minutes: minutes -1});
       }
 
@@ -46,20 +49,19 @@ class Timer extends Component {
       }
 
       // hours change
-      if(c_seconds % 3600 === 0 && hours) {
+      if(convertSeconds % 3600 === 0 && hours) {
         this.setState({hours: hours -1});
       }
 
-      // alert when timer reaches 0
-      if (hours === 0 && minutes === 0 && seconds === 0) {
-        alert("Times up!");
+      if(convertSeconds === null) {
+        console.log("Times up!");
       }
 
     } else {
       clearInterval(this.timer);
+      alert("Times up!");
     }
-  }
-
+  } 
 
   stopTimer = () => {
     clearInterval(this.timer);
