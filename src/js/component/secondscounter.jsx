@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const SimpleCounter = () => {
+const SecondsCounter = () => {
     const [time, setTime] = useState(0);
     const [running, setRunning] = useState(true);
 
@@ -41,4 +41,4 @@ const SimpleCounter = () => {
     );
   };
 
-export default SimpleCounter;
+export default SecondsCounter;

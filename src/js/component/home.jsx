@@ -8,7 +8,7 @@ const Home = () => {
 	return (
 		<div className="App text-center">
 			<h1 className="text-center">Counter</h1>
-			< SimpleCounter />
+			< SecondsCounter />
 			<div className="my-4"><h1>Countdown</h1>
 			< Timer />
 			</div>
